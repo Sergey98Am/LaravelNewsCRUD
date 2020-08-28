@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Posts;
+use App\Post;
 use App\Category;
-use App\Tags;
+use App\Tag;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Posts::all();
+        $posts = Post::all();
         return view('auth.post',compact('posts'));
     }
 
@@ -30,7 +30,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $tags = Tags::all();
+        $tags = Tag::all();
         return view('auth.post_create',compact('categories','tags'));
     }
 
@@ -48,7 +48,7 @@ class PostController extends Controller
             'meta_description' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'images' => 'mimes:jpeg,jpg,png,gif|required',
+            'images' => 'required',
             'category_id' => 'required',
             'tags' => 'required',
         ]);
@@ -72,7 +72,7 @@ class PostController extends Controller
         $tags = $request->tags;
         $input['tags'] = json_encode($tags);
 
-        $post = new Posts;
+        $post = new Post;
         $post->fill($input);
         $post->save();
 
@@ -89,8 +89,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Posts::find($id);
-        $tags = Tags::all();
+        $post = Post::find($id);
+        $tags = Tag::all();
         return view('auth.post_show',compact('post','tags'));
     }
 
@@ -103,8 +103,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
-        $tags = Tags::all();
-        $post = Posts::find($id);
+        $tags = Tag::all();
+        $post = Post::find($id);
         return view('auth.post_edit',compact('categories','tags','post'));
     }
 
@@ -117,7 +117,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Posts::find($id);
+        $post = Post::find($id);
         $input = $request->except('_token','_method','tags');
         $validator = Validator::make($input,[
             'meta_title' => 'required',
@@ -160,7 +160,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $destroy = Posts::find($id);
+        $destroy = Post::find($id);
         foreach (json_decode($destroy->images) as $img){
             \File::delete(public_path().'/images/'.$img);
         }
@@ -171,12 +171,12 @@ class PostController extends Controller
     }
 
     public function categoryPostsAdmin($id){
-        $posts = Posts::where('category_id',$id)->get();
+        $posts = Post::where('category_id',$id)->get();
         return view('auth.post',compact('posts'));
     }
 
     public function tagPostsAdmin($id){
-        $tag = Tags::find($id);
+        $tag = Tag::find($id);
         $posts = $tag->posts;
 
         return view('auth.post',compact('tag','posts'));

@@ -8,14 +8,11 @@
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                <div class="input-group mb-3">
+                <div class="form-group">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="images[]" name="images[]" multiple>
                         <label class="custom-file-label" for="images[]" aria-describedby="inputGroupFileAddon02">Choose
                             file</label>
-                        @if($errors->has('images[]'))
-                        <span class="error">{{$errors->first('images[]')}}</span>
-                        @endif
                     </div>
                 </div>
                 <div class="form-group">

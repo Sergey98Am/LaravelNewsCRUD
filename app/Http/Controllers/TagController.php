@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tags;
+use App\Tag;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -16,7 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tags::all();
+        $tags = Tag::all();
         return view('auth.tag',compact('tags'));
     }
 
@@ -47,7 +47,7 @@ class TagController extends Controller
                 ->withInput();
         }
 
-        $tag = new Tags();
+        $tag = new Tag();
         $tag->fill($input);
         $tag->save();
         return redirect()->route('tag.index');
@@ -72,7 +72,7 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $tag = Tags::find($id);
+        $tag = Tag::find($id);
         return view('auth.tag_edit',compact('tag'));
     }
 
@@ -93,7 +93,7 @@ class TagController extends Controller
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
-        $tag = Tags::find($id);
+        $tag = Tag::find($id);
         $tag->fill($input);
         $tag->update();
         return redirect()->route('tag.index');
@@ -107,7 +107,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $destroy = Tags::find($id);
+        $destroy = Tag::find($id);
         $destroy->posts()->detach();
         $destroy->delete();
         return redirect()->route('tag.index');
