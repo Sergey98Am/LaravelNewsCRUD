@@ -22,7 +22,7 @@
                             <td><a style="color: white; cursor: pointer"
                                     href="{{ route('categoryPostsAdmin',$category->id) }}">{{ $category->title }}</a>
                             </td>
-                            @if($category->user_id == Auth::user()->id)
+                        
                             <td>
                                 <a href="{{ route('category.edit',$category->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -33,10 +33,9 @@
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                            @else
-                            <td><span style="font-size: 22px"><i class="fa fa-times-circle"></i></span></td>
-                            <td><span style="font-size: 22px; color:red"><i class="fa fa-times-circle"></i></span></td>
-                            @endif
+                          
+                           
+                          
                         </tr>
 
                         @endforeach

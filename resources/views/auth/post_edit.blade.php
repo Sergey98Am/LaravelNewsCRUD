@@ -10,10 +10,13 @@
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="form-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="images[]" name="images[]" multiple>
-                        <label class="custom-file-label" for="images[]" aria-describedby="inputGroupFileAddon02">Choose
+                        <input type="file" class="custom-file-input" id="image" name="image">
+                        <label class="custom-file-label" for="image" aria-describedby="inputGroupFileAddon02">Choose
                             file</label>
                     </div>
+                    @if($errors->has('image'))
+                    <span class="error">{{$errors->first('image')}}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="meta_title">Meta Title</label>
@@ -51,19 +54,13 @@
                     <select class="form-control" id="category_id" name="category_id">
                         <option value="">Select Category</option>
                         @foreach($categories as $category)
-                        @if($category->id == $post->category_id)
-                        <option value="{{ $category->id }}" selected>{{ $category->title }}</option>
-                        @else
-                        <option value="{{ $category->id }}">{{ $category->title }}</option>
-
-                        @endif
+                        <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : ''}} >{{ $category->title }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('category_id'))
                     <span class="error">{{$errors->first('category_id')}}</span>
                     @endif
                 </div>
-                <input type="hidden" name="tags">
                 <button class="btn btn-primary">Update Post</button>
             </form>
         </div>

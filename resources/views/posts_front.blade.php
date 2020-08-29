@@ -9,9 +9,7 @@
         @foreach($posts as $post)
         <div class="col-12 col-sm-6 col-lg-4">
             <div class="card" style="width: 100%;">
-                @foreach(json_decode($post->images) as $img)
-                <img class="card-img-top"  src="{{asset('images/'.$img)}}" width="60">
-                @endforeach
+                <img class="card-img-top"  src="{{asset('images/'.$post->image)}}" width="60">
 
                 <div class="card-body">
                   <h5 class="card-title">{{ $post->meta_title }}</h5>

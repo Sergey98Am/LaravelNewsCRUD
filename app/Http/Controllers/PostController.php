@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\Category;
-use App\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('user_id',Auth::user()->id)->get();
         return view('auth.post',compact('posts'));
     }
 
@@ -42,37 +42,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->except('_token');
-        $validator = Validator::make($input,[
-            'meta_title' => 'required',
-            'meta_description' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'images' => 'required',
+        $input = $request->except('_token','image');
+        $post = new Post;
+        $validator = Validator::make($request->all(),[
+            'meta_title' => 'required|unique:posts|min:2|max:255',
+            'meta_description' => 'required|unique:posts|min:2|max:255',
+            'title' => 'required|unique:posts|min:2|max:255',
+            'description' => 'required|unique:posts|min:2|max:255',
+            'image' => 'mimes:jpeg,jpg,png,gif|required',
             'category_id' => 'required',
-            'tags' => 'required',
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
-        if ($request->hasFile('images')){
-            $files = $request->file('images');
-            $image = [];
-            foreach ($files as $file){
-                $file_name = time().$file->getClientOriginalName();
-                array_push($image,$file_name);
-                $file->move(public_path().'/images/',$file_name);
-            }
-            $input['images'] = json_encode($image);
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $file_name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images/',$file_name);
+            $post->image = $file_name;
         }else{
             return redirect()->route('post.create');
         }
 
-        $tags = $request->tags;
-        $input['tags'] = json_encode($tags);
-
-        $post = new Post;
         $post->fill($input);
         $post->save();
 
@@ -90,7 +82,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $tags = Tag::all();
+        $tags = $post->tags;
         return view('auth.post_show',compact('post','tags'));
     }
 
@@ -118,13 +110,13 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        $input = $request->except('_token','_method','tags');
-        $validator = Validator::make($input,[
-            'meta_title' => 'required',
-            'meta_description' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'images' => 'sometimes|required',
+        $input = $request->except('_token','_method','image');
+        $validator = Validator::make($request->all(),[
+            'meta_title' => 'required|min:2|max:255|unique:posts,meta_title,'. $post->id,
+            'meta_description' => 'required|min:2|max:255|unique:posts,meta_description,'. $post->id,
+            'title' => 'required|min:2|max:255|unique:posts,title,'. $post->id,
+            'description' => 'required|min:2|max:255|unique:posts,description,'. $post->id,
+            'image' => 'mimes:jpeg,jpg,png,gif|sometimes|required',
             'category_id' => 'required',
 
         ]);
@@ -132,18 +124,11 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
-        if ($request->hasFile('images')){
-            $files = $request->file('images');
-            $image = [];
-            foreach ($files as $file){
-                $file_name = time().$file->getClientOriginalName();
-                array_push($image,$file_name);
-                $file->move(public_path().'/images/',$file_name);
-
-            }
-            $input['images'] = json_encode($image);
-        }else{
-            $input['images'] = $post->images;
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $file_name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images/',$file_name);
+            $post->image = $file_name;
         }
         
         $post->fill($input);
@@ -161,10 +146,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $destroy = Post::find($id);
-        foreach (json_decode($destroy->images) as $img){
-            \File::delete(public_path().'/images/'.$img);
-        }
- 
+        
+        \File::delete(public_path().'/images/'.$destroy->image);
+         
         $destroy->tags()->detach();
         $destroy->delete();
         return redirect()->route('post.index');

@@ -25,14 +25,13 @@
                             <td>{{ $post->meta_title }}</td>
                             <td>{{ $post->meta_description }}</td>
                             <td>
-                                @foreach(json_decode($post->images) as $img)
-                                <img src="{{asset('images/'.$img)}}" width="60">
-                                @endforeach
+                              
+                                <img src="{{asset('images/'.$post->image)}}" width="60">
+                                
                             </td>
                             <td>
                                 <a href="{{ route('post.show',$post->id) }}" class="btn btn-light">Show</a>
                             </td>
-                            @if($post->user_id == Auth::user()->id)
 
                             <td>
                                 <a href="{{ route('post.edit',$post->id) }}" class="btn btn-light">Edit</a>
@@ -44,11 +43,6 @@
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                            @else
-                            <td><span style="font-size: 22px"><i class="fa fa-times-circle"></i></span></td>
-                            <td><span style="font-size: 22px; color:red"><i class="fa fa-times-circle"></i></span></td>
-
-                            @endif
                         </tr>
                         @endforeach
                     </tbody>

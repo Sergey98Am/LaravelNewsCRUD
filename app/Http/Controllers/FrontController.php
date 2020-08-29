@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\Category;
-use App\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -25,7 +25,7 @@ class FrontController extends Controller
 
     function viewPost($id){
         $post = Post::find($id);
-        $tags = Tag::all();
+        $tags = $post->tags;
         return view('post_view',compact('post','tags'));
     }
 

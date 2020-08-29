@@ -20,9 +20,9 @@ class CreatePostsTable extends Migration
             $table->text('meta_description');
             $table->string('title');
             $table->text('description');
-            $table->string('images');
-            $table->integer('category_id');
-            $table->string('tags');
+            $table->string('image');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

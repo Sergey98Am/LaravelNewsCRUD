@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Posts;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         $input = $request->except('_token');
         $validator = Validator::make($input,[
-            'title' => 'required|max:255',
+            'title' => 'required|unique:categories|min:2|max:255',
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         $input = $request->except('_token','_method');
         $validator = Validator::make($input,[
-            'title' => 'required|max:255',
+            'title' => 'required|min:2|max:255|unique:categories,title,'. $category->id,
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
@@ -108,10 +108,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $destroy = Category::find($id);
-        $posts = Posts::where('category_id', $id)->get();
-        foreach($posts as $post){
-            $post->delete();
-        }
         $destroy->delete();
         return redirect()->route('category.index');
     }

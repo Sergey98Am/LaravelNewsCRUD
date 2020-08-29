@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -38,16 +38,16 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        $tag = new Tag();
         $input = $request->except('_token');
         $validator = Validator::make($input,[
-            'title' => 'required|max:255',
+            'title' => 'required|min:2|max:255|unique:categories,title,'
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
 
-        $tag = new Tag();
         $tag->fill($input);
         $tag->save();
         return redirect()->route('tag.index');
@@ -85,15 +85,16 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $tag = Tag::find($id);
         $input = $request->except('_token','_method');
         $validator = Validator::make($input,[
-            'title' => 'required|max:255',
+            'title' => 'required|min:2|max:255|unique:categories,title,',$tag->id
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
-        $tag = Tag::find($id);
+        
         $tag->fill($input);
         $tag->update();
         return redirect()->route('tag.index');
