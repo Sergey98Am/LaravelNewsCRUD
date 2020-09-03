@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -16,8 +17,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('auth.tag',compact('tags'));
+        $user_id = Auth::user()->id;
+        $user = User::with('tags')->find($user_id);
+        return view('auth.tag',['tags' => $user->tags]);
     }
 
     /**

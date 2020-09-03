@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -17,8 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('auth.category',compact('categories'));
+        $user_id = Auth::user()->id;
+        $user = User::with('categories')->find($user_id);
+        return view('auth.category',['categories' => $user->categories]);
     }
 
     /**

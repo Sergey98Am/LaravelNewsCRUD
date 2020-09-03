@@ -15,7 +15,7 @@
                             <h5 class="card-title">{{ $post->title }}</h5>
                             <p class="card-text">{{$post->description}}</p>
                             @foreach($post->tags as $tag)
-                            <a style="color: blue; margin-right: 3px; cursor: pointer" href="{{ route('tagPostsAdmin',$tag->id) }}">#{{ $tag->title }}</a>
+                            <a style="color: blue; margin-right: 3px; cursor: pointer" href="{{ route('tagPosts',$tag->id) }}">#{{ $tag->title }}</a>
                             @endforeach
                         </div>
                     </div>

@@ -19,20 +19,17 @@ class FrontController extends Controller
     }
 
     function categoryPosts($id){
-        $posts = Post::where('category_id',$id)->get();
-        return view('posts_front',compact('posts'));
+        $category = Category::with('posts')->find($id);
+        return view('posts_front',['posts' => $category->posts]);
     }
 
     function viewPost($id){
         $post = Post::find($id);
-        $tags = $post->tags;
-        return view('post_view',compact('post','tags'));
+        return view('post_view',compact('post'));
     }
 
     function tagPosts($id){
-        $tag = Tag::find($id);
-        $posts = $tag->posts;
-
-        return view('posts_front',compact('tag','posts'));
+        $tag = Tag::with('posts')->find($id);
+        return view('posts_front',['posts' => $tag->posts]);
     }
 }

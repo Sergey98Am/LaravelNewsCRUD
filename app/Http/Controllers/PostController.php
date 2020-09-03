@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -18,8 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id',Auth::user()->id)->get();
-        return view('auth.post',compact('posts'));
+        $user_id = Auth::user()->id;
+        $user = User::with('posts')->find($user_id);
+        return view('auth.post',['posts' => $user->posts]);
     }
 
     /**
@@ -50,7 +52,7 @@ class PostController extends Controller
             'title' => 'required|unique:posts|min:2|max:255',
             'description' => 'required|unique:posts|min:2|max:255',
             'image' => 'mimes:jpeg,jpg,png,gif|required',
-            'category_id' => 'required',
+            'category_id' => 'exists:categories,id'
         ]);
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
@@ -117,7 +119,7 @@ class PostController extends Controller
             'title' => 'required|min:2|max:255|unique:posts,title,'. $post->id,
             'description' => 'required|min:2|max:255|unique:posts,description,'. $post->id,
             'image' => 'mimes:jpeg,jpg,png,gif|sometimes|required',
-            'category_id' => 'required',
+            'category_id' => 'exists:categories,id'
 
         ]);
         if ($validator->fails()){
@@ -155,14 +157,13 @@ class PostController extends Controller
     }
 
     public function categoryPostsAdmin($id){
-        $posts = Post::where('category_id',$id)->get();
-        return view('auth.post',compact('posts'));
+        $category = Category::with('posts')->find($id);
+        return view('auth.post',['posts' => $category->posts]);
+
     }
 
     public function tagPostsAdmin($id){
-        $tag = Tag::find($id);
-        $posts = $tag->posts;
-
-        return view('auth.post',compact('tag','posts'));
+        $tag = Tag::with('posts')->find($id);
+        return view('auth.post',['posts' => $tag->posts]);
     }
 }

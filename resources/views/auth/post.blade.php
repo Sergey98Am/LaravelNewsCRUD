@@ -18,9 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach($posts as $post)
-
                         <tr class="bg-primary">
                             <td>{{ $post->meta_title }}</td>
                             <td>{{ $post->meta_description }}</td>
@@ -32,7 +30,7 @@
                             <td>
                                 <a href="{{ route('post.show',$post->id) }}" class="btn btn-light">Show</a>
                             </td>
-
+                        
                             <td>
                                 <a href="{{ route('post.edit',$post->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -45,6 +43,7 @@
                             </td>
                         </tr>
                         @endforeach
+                     
                     </tbody>
                 </table>
             </div>

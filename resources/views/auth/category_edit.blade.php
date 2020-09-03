@@ -7,6 +7,7 @@
             <form action="{{route('category.update',$category->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Create Category"
                         aria-describedby="button-addon2" name='title' value="{{$category->title}}">
