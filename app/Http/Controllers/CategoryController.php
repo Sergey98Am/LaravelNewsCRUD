@@ -18,9 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $user = User::with('categories')->find($user_id);
-        return view('auth.category',['categories' => $user->categories]);
+        $categories = Category::all();
+        return view('auth.category', compact('categories'));
     }
 
     /**

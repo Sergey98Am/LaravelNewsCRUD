@@ -16,11 +16,10 @@
                     </thead>
                     <tbody>
                         @foreach($tags as $tag)
-
                         <tr class="bg-primary">
                             <td><a style="color: white; cursor: pointer"
                                     href="{{ route('tagPostsAdmin',$tag->id) }}">#{{ $tag->title }}</a></td>
-                            @if($tag->user_id == Auth::user()->id)
+                
                             <td>
                                 <a href="{{ route('tag.edit',$tag->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -31,12 +30,7 @@
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                            @else
-                            <td><span style="font-size: 22px"><i class="fa fa-times-circle"></i></span></td>
-                            <td><span style="font-size: 22px; color:red"><i class="fa fa-times-circle"></i></span></td>
-                            @endif
                         </tr>
-
                         @endforeach
                     </tbody>
                 </table>

@@ -17,9 +17,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $user = User::with('tags')->find($user_id);
-        return view('auth.tag',['tags' => $user->tags]);
+        $tags = Tag::all();
+        return view('auth.tag',compact('tags'));
     }
 
     /**
@@ -111,7 +110,6 @@ class TagController extends Controller
     public function destroy($id)
     {
         $destroy = Tag::find($id);
-        $destroy->posts()->detach();
         $destroy->delete();
         return redirect()->route('tag.index');
     }

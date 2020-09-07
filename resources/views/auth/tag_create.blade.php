@@ -6,7 +6,6 @@
         <div class="col-6 offset-3">
             <form action="{{ route('tag.store') }}" method="post">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Create Tag"
                         aria-label="Create Tag" aria-describedby="button-addon2" name='title' value="{{ old('title') }}">

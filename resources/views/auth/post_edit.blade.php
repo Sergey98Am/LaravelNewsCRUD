@@ -61,6 +61,21 @@
                     <span class="error">{{$errors->first('category_id')}}</span>
                     @endif
                 </div>
+                <div class="form-group">
+                    @foreach($tags as $tag)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                            id="{{ $tag->title }}" {{ $post->tags->contains($tag->id) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="{{ $tag->title }}">
+                            #{{ $tag->title }}
+                        </label>
+                        @if($errors->has('tags'))
+                        <span class="error">{{$errors->first('tags')}}</span>
+                        @endif
+                    </div>
+            
+                    @endforeach
+                </div>
                 <button class="btn btn-primary">Update Post</button>
             </form>
         </div>

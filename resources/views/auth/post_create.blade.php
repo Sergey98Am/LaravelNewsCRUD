@@ -65,11 +65,13 @@
                         <label class="form-check-label" for="{{ $tag->title }}">
                             #{{ $tag->title }}
                         </label>
-                        @if($errors->has('tags'))
-                        <span class="error">{{$errors->first('tags')}}</span>
+                        @if ($errors->has('tags'))
+                        <span class="error"> {{ $errors->first('tags') }}</span>
                         @endif
                     </div>
+                    
                     @endforeach
+                    
                 </div>
 
                 <button class="btn btn-primary">Create Post</button>

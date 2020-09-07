@@ -52,12 +52,17 @@ class PostController extends Controller
             'title' => 'required|unique:posts|min:2|max:255',
             'description' => 'required|unique:posts|min:2|max:255',
             'image' => 'mimes:jpeg,jpg,png,gif|required',
-            'category_id' => 'exists:categories,id'
+            'category_id' => 'exists:categories,id',
+            'tags' => 'required|array',
+            'tags.*' => 'required|exists:tags,id',
         ]);
+  
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         }
+
+        
         if ($request->hasFile('image')){
             $file = $request->file('image');
             $file_name = time().$file->getClientOriginalName();
@@ -119,7 +124,9 @@ class PostController extends Controller
             'title' => 'required|min:2|max:255|unique:posts,title,'. $post->id,
             'description' => 'required|min:2|max:255|unique:posts,description,'. $post->id,
             'image' => 'mimes:jpeg,jpg,png,gif|sometimes|required',
-            'category_id' => 'exists:categories,id'
+            'category_id' => 'exists:categories,id',
+            'tags' => 'required|array',
+            'tags.*' => 'required|exists:tags,id',
 
         ]);
         if ($validator->fails()){
@@ -136,6 +143,8 @@ class PostController extends Controller
         $post->fill($input);
         $post->update();
 
+        $post->tags()->sync($request->tags);
+
         return redirect()->route('post.index');
     }
 
@@ -151,7 +160,6 @@ class PostController extends Controller
         
         \File::delete(public_path().'/images/'.$destroy->image);
          
-        $destroy->tags()->detach();
         $destroy->delete();
         return redirect()->route('post.index');
     }

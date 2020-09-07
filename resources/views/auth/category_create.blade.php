@@ -6,7 +6,6 @@
         <div class="col-sm-12 offset-0 col-md-8 offset-md-2">
             <form action="{{ route('category.store') }}" method="post">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Create Category"
                         aria-label="Create Category" aria-describedby="button-addon2" name='title' value="{{ old('title') }}">

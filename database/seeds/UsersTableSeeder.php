@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\TestCase;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\Models\User::class,15)->create();
         $users = [
             [
                 'name' => 'Sergey Gabrielyan',
@@ -24,11 +26,6 @@ class UsersTableSeeder extends Seeder
                 'email' => 'nhovsepyan@gmail.com',
                 'password' => Hash::make('naira_password'),
             ],
-            [
-                'name' => 'Razmik Khachikyan',
-                'email' => 'khachikyan.1998@inbox.ru',
-                'password' => Hash::make('razmik_password'),
-            ]
         ];
 
         User::insert($users);
