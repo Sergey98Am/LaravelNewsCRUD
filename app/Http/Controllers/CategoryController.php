@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -38,16 +39,11 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $input = $request->except('_token');
-        $validator = Validator::make($input,[
-            'title' => 'required|unique:categories|min:2|max:255',
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
+
+        $validated = $request->validated();
         $category = new Category();
         $category->fill($input);
         $category->save();
@@ -84,16 +80,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $input = $request->except('_token','_method');
-        $validator = Validator::make($input,[
-            'title' => 'required|min:2|max:255|unique:categories,title,'. $category->id,
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
+        $input = $request->except('_token','_method','id');
+
+        $validated = $request->validated();
         $category = Category::find($id);
         $category->fill($input);
         $category->update();

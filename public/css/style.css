@@ -13,3 +13,12 @@ body {
 a{
     text-decoration: none!important;
 }
+table p{
+    color: white;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px!important;
+}

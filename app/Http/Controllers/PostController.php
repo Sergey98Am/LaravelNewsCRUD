@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -42,27 +43,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $input = $request->except('_token','image');
         $post = new Post;
-        $validator = Validator::make($request->all(),[
-            'meta_title' => 'required|unique:posts|min:2|max:255',
-            'meta_description' => 'required|unique:posts|min:2|max:255',
-            'title' => 'required|unique:posts|min:2|max:255',
-            'description' => 'required|unique:posts|min:2|max:255',
-            'image' => 'mimes:jpeg,jpg,png,gif|required',
-            'category_id' => 'exists:categories,id',
-            'tags' => 'required|array',
-            'tags.*' => 'required|exists:tags,id',
-        ]);
-  
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
 
-        
+        $validated = $request->validated();   
         if ($request->hasFile('image')){
             $file = $request->file('image');
             $file_name = time().$file->getClientOriginalName();
@@ -114,25 +100,12 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        $input = $request->except('_token','_method','image');
-        $validator = Validator::make($request->all(),[
-            'meta_title' => 'required|min:2|max:255|unique:posts,meta_title,'. $post->id,
-            'meta_description' => 'required|min:2|max:255|unique:posts,meta_description,'. $post->id,
-            'title' => 'required|min:2|max:255|unique:posts,title,'. $post->id,
-            'description' => 'required|min:2|max:255|unique:posts,description,'. $post->id,
-            'image' => 'mimes:jpeg,jpg,png,gif|sometimes|required',
-            'category_id' => 'exists:categories,id',
-            'tags' => 'required|array',
-            'tags.*' => 'required|exists:tags,id',
+        $input = $request->except('_token','_method','image','id');
 
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
+        $validated = $request->validated();   
         if ($request->hasFile('image')){
             $file = $request->file('image');
             $file_name = time().$file->getClientOriginalName();
@@ -159,19 +132,8 @@ class PostController extends Controller
         $destroy = Post::find($id);
         
         \File::delete(public_path().'/images/'.$destroy->image);
-         
+     
         $destroy->delete();
         return redirect()->route('post.index');
-    }
-
-    public function categoryPostsAdmin($id){
-        $category = Category::with('posts')->find($id);
-        return view('auth.post',['posts' => $category->posts]);
-
-    }
-
-    public function tagPostsAdmin($id){
-        $tag = Tag::with('posts')->find($id);
-        return view('auth.post',['posts' => $tag->posts]);
     }
 }

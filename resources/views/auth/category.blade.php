@@ -19,8 +19,8 @@
                         @foreach($categories as $category)
 
                         <tr class="bg-primary">
-                            <td><a style="color: white; cursor: pointer"
-                                    href="{{ route('categoryPostsAdmin',$category->id) }}">{{ $category->title }}</a>
+                            <td>
+                               <p>{{ $category->title }}</p>
                             </td>
                         
                             <td>

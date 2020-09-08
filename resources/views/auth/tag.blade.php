@@ -17,9 +17,9 @@
                     <tbody>
                         @foreach($tags as $tag)
                         <tr class="bg-primary">
-                            <td><a style="color: white; cursor: pointer"
-                                    href="{{ route('tagPostsAdmin',$tag->id) }}">#{{ $tag->title }}</a></td>
-                
+                            <td>
+                                <p>{{ $tag->title }}</p>
+                            </td>           
                             <td>
                                 <a href="{{ route('tag.edit',$tag->id) }}" class="btn btn-light">Edit</a>
                             </td>

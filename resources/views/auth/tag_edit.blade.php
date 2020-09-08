@@ -7,6 +7,7 @@
             <form action="{{route('tag.update',$tag->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
+                <input type="hidden" name="id" value="{{ $tag->id }}">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Create Category"
                         aria-describedby="button-addon2" name='title' value="{{$tag->title}}">

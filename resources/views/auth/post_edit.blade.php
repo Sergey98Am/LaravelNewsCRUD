@@ -7,6 +7,7 @@
             <form action="{{ route('post.update',$post->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="id" value="{{ $post->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="form-group">
                     <div class="custom-file">

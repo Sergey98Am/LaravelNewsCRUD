@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use App\Http\Requests\TagRequest;
+
+
 
 class TagController extends Controller
 {
@@ -37,18 +40,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
         $tag = new Tag();
         $input = $request->except('_token');
-        $validator = Validator::make($input,[
-            'title' => 'required|min:2|max:255|unique:categories,title,'
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
 
+        $validated = $request->validated();
         $tag->fill($input);
         $tag->save();
         return redirect()->route('tag.index');
@@ -84,18 +81,12 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, $id)
     {
         $tag = Tag::find($id);
-        $input = $request->except('_token','_method');
-        $validator = Validator::make($input,[
-            'title' => 'required|min:2|max:255|unique:categories,title,',$tag->id
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
-        }
-        
+        $input = $request->except('_token','_method','id');
+    
+        $validated = $request->validated();    
         $tag->fill($input);
         $tag->update();
         return redirect()->route('tag.index');
