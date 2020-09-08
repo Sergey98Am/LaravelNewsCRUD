@@ -16,9 +16,9 @@ a{
 table p{
     color: white;
 }
-.card-body{
+.news_card .card-body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 200px!important;
+    height: 100%;
 }
