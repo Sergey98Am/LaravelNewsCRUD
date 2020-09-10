@@ -11,7 +11,7 @@
                         <tr class="bg-primary">
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Image(s)</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Show</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>

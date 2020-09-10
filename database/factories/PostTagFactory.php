@@ -9,9 +9,6 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 
-
-
-
 $factory->define(PostTag::class, function (Faker $faker) {
     return [
         'post_id' => Post::all()->random()->id,

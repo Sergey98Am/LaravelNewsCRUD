@@ -36,6 +36,10 @@
     <!-- FontAwesome -->
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
+    <!-- DateTimePicker -->
+    <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -65,7 +69,7 @@
                             <a class="nav-link" href="{{ route('tag.index') }}">Tags</a>
                          </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('post.index') }}">Posts</a>
+                            <a class="nav-link" href="{{ route('post.index') }}">My Posts</a>
                          </li>
                         @endguest
                     </ul>
@@ -86,10 +90,13 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->full_name }} <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('home') }}" style="background: rgb(39, 208, 230)!important">
+                                    Profile
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -116,6 +123,7 @@
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/jquery.datetimepicker.full.js')}}"></script>
 </body>
 
 </html>

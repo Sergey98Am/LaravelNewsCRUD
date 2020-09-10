@@ -20,9 +20,9 @@
 
                         <tr class="bg-primary">
                             <td>
-                               <p>{{ $category->title }}</p>
+                                <p>{{ $category->title }}</p>
                             </td>
-                        
+
                             <td>
                                 <a href="{{ route('category.edit',$category->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -33,11 +33,7 @@
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                          
-                           
-                          
                         </tr>
-
                         @endforeach
                     </tbody>
                 </table>

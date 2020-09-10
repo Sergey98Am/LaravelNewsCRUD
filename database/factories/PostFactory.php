@@ -10,7 +10,6 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Post::class, function (Faker $faker) {
-
     return [
         'meta_title' => $faker->sentence(5),
         'meta_description' => $faker->sentence(10),

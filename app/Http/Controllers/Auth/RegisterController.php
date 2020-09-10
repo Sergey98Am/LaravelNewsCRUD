@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
+use App\Models\Country;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +51,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name' => 'required|min:2|max:255',
+            'last_name' => 'required|min:2|max:255|',
+            'email' => 'required|string|email|max:255|unique:users',
+            'date_of_birth' => 'required',
+            'gender' => 'required',
+            'country_id' => 'exists:countries,id',
+            'password' => 'required|string|min:8|confirmed',
         ]);
     }
 
@@ -65,9 +70,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
+            'country_id' => $data['country_id'],
+            'date_of_birth' => $data['date_of_birth'],
+            'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm(){
+        $countries = Country::all();
+        return view('auth.register',compact('countries'));
     }
 }

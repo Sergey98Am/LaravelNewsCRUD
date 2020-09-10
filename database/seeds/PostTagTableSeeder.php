@@ -13,6 +13,6 @@ class PostTagTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(PostTag::class,20)->create();
+        factory(PostTag::class,1)->create();
     }
 }

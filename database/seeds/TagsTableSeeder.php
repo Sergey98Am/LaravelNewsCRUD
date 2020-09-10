@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Tag;
 
 
-class TagTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class TagTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Tag::class,10)->create();
+        factory(Tag::class,1)->create();
     }
 }

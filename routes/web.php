@@ -20,13 +20,23 @@ Route::get('/tag_num/{id}', 'FrontController@tagPosts')->name('tagPosts');
 
 Auth::routes();
 
+Route::group(['prefix' => 'admin-page','namespace' => 'Auth\AdminPage', 'middleware' => ['auth','role']],function (){
+    Route::get('/admin_home', 'AdminController@AdminHome')->name('adminHome');
+    Route::get('/all_users', 'AllUsersController@index')->name('allUsers');
+    Route::get('/edit_user/{id}', 'AllUsersController@edit')->name('editUser');
+    Route::put('/update_user/{id}', 'AllUsersController@update')->name('updateUser');
+    Route::delete('/delete_user/{id}', 'AllUsersController@delete')->name('deleteUser');
+    Route::resource('/a_post', 'AllPostsController');
+    Route::get('/tag_posts_admin/{id}', 'AllPostsController@TagPostsAdmin')->name('tagPostsAdmin');
+    Route::get('/user_posts_admin/{id}', 'AllPostsController@UserPostsAdmin')->name('userPostsAdmin');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/post','PostController');
     Route::resource('/category','CategoryController');
     Route::resource('/tag','TagController');
-    Route::get('/category_number/{id}', 'PostController@categoryPostsAdmin')->name('categoryPostsAdmin');
-    Route::get('/tag_number/{id}', 'PostController@tagPostsAdmin')->name('tagPostsAdmin');
+    Route::put('/update_profile','UserController@update')->name('updateProfile');
 });
 
 

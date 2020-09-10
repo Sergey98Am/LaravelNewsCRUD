@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\TestCase;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,16 +16,20 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class,15)->create();
+
         $users = [
             [
-                'name' => 'Sergey Gabrielyan',
+                'first_name' => 'Sergey',
+                'last_name' => 'Gabrielyan',
                 'email' => 'serg98barca@gmail.com',
+                'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'date_of_birth' => Carbon::parse('1998-01-10')->format('y-m-d'),
+                'gender' => 'Male',
                 'password' => Hash::make('serg_password'),
-            ],
-            [
-                'name' => 'Naira Hovsepyan',
-                'email' => 'nhovsepyan@gmail.com',
-                'password' => Hash::make('naira_password'),
+                'country_id' => 20,
+                'role_id' => 2,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
         ];
 
