@@ -8,18 +8,6 @@
                 <h4>Profile Page</h4>
             </div>
             <div class="card-body">
-                {{-- <div class="info text-center">
-                    <h5 >Full Name</h5>
-                    <p>{{ Auth::user()->full_name }}</p>
-                <h5>Email</h5>
-                <p>{{ Auth::user()->email }}</p>
-                <h5>Country</h5>
-                <p>{{ Auth::user()->country->name }}</p>
-                <h5>Age</h5>
-                <p>{{ Auth::user()->age }}</p>
-                <h5>Gender</h5>
-                <p>{{ Auth::user()->gender }}</p>
-            </div> --}}
             <form action="{{route('updateProfile')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")

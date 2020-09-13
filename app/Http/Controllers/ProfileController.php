@@ -5,7 +5,7 @@ use App\Models\Country;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,6 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         $countries = Country::all();
-        return view('auth\home',compact('countries'));
+        return view('auth\profile',compact('countries'));
     }
 }

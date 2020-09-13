@@ -15,6 +15,7 @@
                     <h5 class="card-title">{{ $post->meta_title }}</h5>
                     <p class="card-text">{{ $post->meta_description }}</p>
                     <a href="{{ route('viewPost',$post->id) }}" class="btn btn-primary">View</a>
+                    <a href="{{ route('commentsView',$post->id) }}" class="btn btn-dark mt-2"><i class="fa fa-comment"></i></a>
                 </div>
             </div>
         </div>

@@ -47,12 +47,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
-    public function roles(){
+    public function role(){
         return $this->belongsTo('App\Models\Role');
     }
 
     public function isRole(){
         return $this->role_id;
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
     }
 
 	public function getFullNameAttribute() {

@@ -20,7 +20,7 @@
                                     value="{{ old('first_name') }}" >
 
                                 @error('first_name')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     value="{{ old('last_name') }}" >
 
                                 @error('last_name')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                     name="email" value="{{ old('email') }}" >
 
                                 @error('email')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                    @endforeach
                                 </select>
                                 @error('country_id')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                     name="date_of_birth" value="{{ old('date_of_birth') }}" >
 
                                 @error('date_of_birth')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                    <option value="Female">Female</option>
                                 </select>
                                 @error('gender')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     class="form-control" name="password">
 
                                 @error('password')
-                                <p>{{ $message }}</p>
+                                <p class="error">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>

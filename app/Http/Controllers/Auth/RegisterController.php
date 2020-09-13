@@ -9,6 +9,8 @@ use App\Models\Country;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\RegisterRequest;
+
 
 class RegisterController extends Controller
 {
@@ -30,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::PROFILE;
 
     /**
      * Create a new controller instance.
@@ -42,25 +44,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'first_name' => 'required|min:2|max:255',
-            'last_name' => 'required|min:2|max:255|',
-            'email' => 'required|string|email|max:255|unique:users',
-            'date_of_birth' => 'required',
-            'gender' => 'required',
-            'country_id' => 'exists:countries,id',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-    }
 
+    public function register(RegisterRequest $request)
+    {
+        $validated = $request->validated();   
+    }
+    
     /**
      * Create a new user instance after a valid registration.
      *
