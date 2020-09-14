@@ -24,7 +24,7 @@ Route::get('/sub_comments_view/{id}', 'CommentController@SubCommentsView')->name
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin-page','namespace' => 'Auth\AdminPage', 'middleware' => ['auth','role']],function (){
+Route::group(['prefix' => 'admin-page','namespace' => 'AdminPage', 'middleware' => ['auth','role']],function (){
     Route::get('/admin_home', 'AdminController@AdminHome')->name('adminHome');
     Route::get('/all_users', 'AllUsersController@index')->name('allUsers');
     Route::get('/edit_user/{id}', 'AllUsersController@edit')->name('editUser');

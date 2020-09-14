@@ -14,12 +14,12 @@ class CategoryController extends Controller
     {
         $categories = Category::OrderBy('id','desc')->paginate(6);
 
-        return view('auth.category', compact('categories'));
+        return view('category', compact('categories'));
     }
 
     public function create()
     {
-        return view('auth.category_create');
+        return view('category_create');
     }
 
     public function store(CategoryRequest $request)
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        return view('auth.category_edit',compact('category'));
+        return view('category_edit',compact('category'));
     }
 
     public function update(CategoryRequest $request, $id)

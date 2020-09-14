@@ -1,4 +1,4 @@
-@extends('auth.admin-page.admin_home')
+@extends('admin-page.admin_home')
 
 @section('items')
 <div class="col-12">

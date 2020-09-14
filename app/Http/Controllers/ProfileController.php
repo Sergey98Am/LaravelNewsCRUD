@@ -9,6 +9,6 @@ class ProfileController extends Controller
     {
         $countries = Country::all();
         
-        return view('auth\profile',compact('countries'));
+        return view('profile',compact('countries'));
     }
 }

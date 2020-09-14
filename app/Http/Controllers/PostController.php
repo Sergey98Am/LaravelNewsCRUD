@@ -16,7 +16,7 @@ class PostController extends Controller
         $user_id = Auth::user()->id;
         $user = User::with('posts')->find($user_id);
 
-        return view('auth.post',['posts' => $user->posts()->orderBy('id','desc')->paginate(6)]);
+        return view('post',['posts' => $user->posts()->orderBy('id','desc')->paginate(6)]);
     }
 
     public function create()
@@ -24,7 +24,7 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('auth.post_create',compact('categories','tags'));
+        return view('post_create',compact('categories','tags'));
     }
 
     public function store(PostRequest $request)
@@ -56,7 +56,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $tags = $post->tags;
 
-        return view('auth.post_show',compact('post','tags'));
+        return view('post_show',compact('post','tags'));
     }
 
     public function edit($id)
@@ -65,7 +65,7 @@ class PostController extends Controller
         $tags = Tag::all();
         $post = Post::find($id);
 
-        return view('auth.post_edit',compact('categories','tags','post'));
+        return view('post_edit',compact('categories','tags','post'));
     }
 
     public function update(PostRequest $request, $id)

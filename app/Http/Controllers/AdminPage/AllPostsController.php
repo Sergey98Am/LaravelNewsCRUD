@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\AdminPage;
+namespace App\Http\Controllers\AdminPage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
@@ -14,7 +14,7 @@ class AllPostsController extends Controller
     public function index(){
         $posts = Post::OrderBy('id','desc')->paginate(6);
 
-        return view('auth.admin-page.all_posts',compact('posts'));
+        return view('admin-page.all_posts',compact('posts'));
     }
 
     public function show($id)
@@ -22,7 +22,7 @@ class AllPostsController extends Controller
         $post = Post::find($id);
         $tags = $post->tags;
 
-        return view('auth.admin-page.show_post',compact('post','tags'));
+        return view('admin-page.show_post',compact('post','tags'));
     }
 
     public function edit($id)
@@ -31,7 +31,7 @@ class AllPostsController extends Controller
         $tags = Tag::all();
         $post = Post::find($id);
 
-        return view('auth.admin-page.edit_post',compact('categories','tags','post'));
+        return view('admin-page.edit_post',compact('categories','tags','post'));
     }
 
     public function update($id, PostRequest $request){
@@ -67,12 +67,12 @@ class AllPostsController extends Controller
     public function TagPostsAdmin($id){
         $tag = Tag::with('posts')->find($id);
 
-        return view('auth.admin-page.all_posts',['posts' => $tag->posts()->paginate(6)]);
+        return view('admin-page.all_posts',['posts' => $tag->posts()->paginate(6)]);
     }
 
     public function UserPostsAdmin($id){
         $category = User::with('posts')->find($id);
 
-        return view('auth.admin-page.all_posts',['posts' => $category->posts()->paginate(6)]);
+        return view('admin-page.all_posts',['posts' => $category->posts()->paginate(6)]);
     }
 }

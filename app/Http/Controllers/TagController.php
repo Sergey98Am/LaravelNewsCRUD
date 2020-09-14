@@ -13,12 +13,12 @@ class TagController extends Controller
     {
         $tags = Tag::orderBy('id','desc')->paginate(6);
 
-        return view('auth.tag',compact('tags'));
+        return view('tag',compact('tags'));
     }
 
     public function create()
     {
-        return view('auth.tag_create');
+        return view('tag_create');
     }
 
     public function store(TagRequest $request)
@@ -39,7 +39,7 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
 
-        return view('auth.tag_edit',compact('tag'));
+        return view('tag_edit',compact('tag'));
     }
 
     public function update(TagRequest $request, $id)

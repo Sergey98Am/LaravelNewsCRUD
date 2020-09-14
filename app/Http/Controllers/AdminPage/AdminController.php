@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth\AdminPage;
+namespace App\Http\Controllers\AdminPage;
 
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
     public function AdminHome(){
-        return view('auth.admin-page.admin_home');
+        return view('admin-page.admin_home');
     }
 }
