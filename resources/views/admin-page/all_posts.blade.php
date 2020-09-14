@@ -13,6 +13,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Image</th>
                     <th scope="col">Show</th>
+                    <th scope="col">Comments</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -27,6 +28,9 @@
                     </td>
                     <td>
                         <a href="{{ route('a_post.show',$post->id) }}" class="btn btn-light">Show</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('adminComments',$post->id) }}" class="btn btn-light"><i class="fa fa-comment"></i></a>
                     </td>
                     <td>
                         <a href="{{ route('a_post.edit',$post->id) }}" class="btn btn-light">Edit</a>

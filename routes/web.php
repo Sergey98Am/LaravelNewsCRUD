@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin-page','namespace' => 'AdminPage', 'middleware' 
     Route::get('/all_comments', 'AllCommentsController@index')->name('allComments');
     Route::get('/all_sub_comments/{id}', 'AllCommentsController@AllSubComments')->name('allSubComments');
     Route::delete('/delete_comment/{id}', 'AllCommentsController@DeleteComment')->name('deleteComment');
+    Route::get('/admin_comments/{id}', 'AllCommentsController@AdminComments')->name('adminComments');
 });
 
 Route::middleware('auth')->group(function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Post;
 
 class AllCommentsController extends Controller
 {
@@ -25,5 +26,10 @@ class AllCommentsController extends Controller
         $delete->delete();
         
         return back()->with('message','Success!');
+    }
+
+    public function adminComments($id){
+        $post = Post::with('comments')->find($id);
+        return view('admin-page.all_comments',['comments' => $post->comments()->orderBy('id','desc')->paginate(6)]);
     }
 }
