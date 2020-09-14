@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\TestCase;
-use Carbon\Carbon;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class,15)->create();
+        factory(User::class,9)->create();
 
         $users = [
             [

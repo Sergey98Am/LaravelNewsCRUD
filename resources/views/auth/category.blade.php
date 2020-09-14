@@ -6,6 +6,9 @@
         <div class="col-12">
             <a href="{{route('category.create')}}" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Create
                 Category</a>
+            @if(session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
             <div style="overflow-x:auto;">
                 <table class="table text-center">
                     <thead>
@@ -17,12 +20,10 @@
                     </thead>
                     <tbody>
                         @foreach($categories as $category)
-
                         <tr class="bg-primary">
                             <td>
                                 <p>{{ $category->title }}</p>
                             </td>
-
                             <td>
                                 <a href="{{ route('category.edit',$category->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -37,6 +38,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{$categories->links()}}
             </div>
         </div>
     </div>

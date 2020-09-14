@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin-page','namespace' => 'Auth\AdminPage', 'middlew
     Route::get('/edit_user/{id}', 'AllUsersController@edit')->name('editUser');
     Route::put('/update_user/{id}', 'AllUsersController@update')->name('updateUser');
     Route::delete('/delete_user/{id}', 'AllUsersController@delete')->name('deleteUser');
-    Route::resource('/a_post', 'AllPostsController');
+    Route::resource('/a_post', 'AllPostsController')->except(['create','store']);
     Route::get('/tag_posts_admin/{id}', 'AllPostsController@TagPostsAdmin')->name('tagPostsAdmin');
     Route::get('/user_posts_admin/{id}', 'AllPostsController@UserPostsAdmin')->name('userPostsAdmin');
     Route::get('/all_comments', 'AllCommentsController@index')->name('allComments');
@@ -42,8 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/my_posts', 'FrontController@MyPosts')->name('myPosts');
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::resource('/post','PostController');
-    Route::resource('/category','CategoryController');
-    Route::resource('/tag','TagController');
+    Route::resource('/category','CategoryController')->except(['show']);
+    Route::resource('/tag','TagController')->except(['show']);
     Route::put('/update_profile','UserController@update')->name('updateProfile');
 });
 

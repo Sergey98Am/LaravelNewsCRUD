@@ -17,19 +17,22 @@
                 </div>
                 <button class="btn btn-primary mb-3">Create Comment</button>
             </form>
+            @if(session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
             <div class="comments mb-3">
                 @foreach($comments as $comment)
                 <div class="card card_comment">
                     <div class="card-body">
                         <div>
-                            <p class="m-0">{{ $comment->user_id ? $comment->user->full_name : 'Guest'}}: <i>{{ $comment->comment }}</i></p>
+                            <p class="m-0">{{ $comment->user_id ? $comment->user->full_name : 'Guest'}}:
+                                <i>{{ $comment->comment }}</i></p>
                             <p class="mb-0 mt-1"><a href="{{ route('subCommentsView',$comment->id) }}">Comment</a></p>
                         </div>
                         @if(Auth::user() && Auth::user()->id == $post->user_id)
                         <form action="{{ route('commentDelete',$comment->id) }}" method="post">
                             @csrf
                             @method("DELETE")
-                           
                             <button class="btn btn-danger"><i class="fa fa-remove"></i></button>
                         </form>
                         @endif

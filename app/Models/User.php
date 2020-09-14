@@ -38,6 +38,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function isRole(){
+        return $this->role_id;
+    }
+
+    public function role(){
+        return $this->belongsTo('App\Models\Role');
+    }
 
     public function country(){
         return $this->belongsTo('App\Models\Country');
@@ -45,14 +53,6 @@ class User extends Authenticatable
 
     public function posts(){
         return $this->hasMany('App\Models\Post');
-    }
-
-    public function role(){
-        return $this->belongsTo('App\Models\Role');
-    }
-
-    public function isRole(){
-        return $this->role_id;
     }
 
     public function comments(){

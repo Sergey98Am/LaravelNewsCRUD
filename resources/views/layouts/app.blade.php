@@ -5,47 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Project</title>
 
-    <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-
-
-    <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
-
-
-
-    <!-- Jquery UI -->
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
-
-
-    <!-- Bootstrap -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- FontAwesome -->
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
-
-    <!-- DateTimePicker -->
-    <link href="{{ asset('css/jquery.datetimepicker.css') }}" rel="stylesheet">
-
-
 </head>
 
 <body>
-
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background: rgb(39, 208, 230)!important">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"
+            style="background: rgb(39, 208, 230)!important">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     News
@@ -55,28 +28,22 @@
                     aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-               
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @guest
                         @else
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
-                         </li>
-                         <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('tag.index') }}">Tags</a>
-                         </li>
-                         <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('post.index') }}">My Posts</a>
-                         </li>
+                        </li>
                         @endguest
                     </ul>
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -92,16 +59,15 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->full_name }} <span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}" style="background: rgb(39, 208, 230)!important">
+                                <a class="dropdown-item" href="{{ route('profile') }}"
+                                    style="background: rgb(39, 208, 230)!important">
                                     Profile
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     style="display: none;">
                                     @csrf
@@ -113,7 +79,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4" style="background: rgb(136, 226, 230);min-height: 90vh">
             @yield('content')
         </main>
@@ -123,7 +88,6 @@
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('js/jquery.datetimepicker.full.js')}}"></script>
 </body>
 
 </html>

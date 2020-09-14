@@ -2,12 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Tag;
-use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 $factory->define(Post::class, function (Faker $faker) {
     return [

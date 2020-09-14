@@ -2,6 +2,9 @@
 
 @section('items')
 <div class="col-12">
+    @if(session('message'))
+    <div class="alert alert-success mt-3">{{ session('message') }}</div>
+    @endif
     <div class="mt-3" style="overflow-x:auto;">
         <table class="table text-center">
             <thead>
@@ -20,14 +23,11 @@
                     <td>{{ $post->meta_title }}</td>
                     <td>{{ $post->meta_description }}</td>
                     <td>
-
                         <img src="{{asset('images/'.$post->image)}}" width="60">
-
                     </td>
                     <td>
                         <a href="{{ route('a_post.show',$post->id) }}" class="btn btn-light">Show</a>
                     </td>
-
                     <td>
                         <a href="{{ route('a_post.edit',$post->id) }}" class="btn btn-light">Edit</a>
                     </td>

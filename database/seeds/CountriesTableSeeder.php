@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Country;
 use Carbon\Carbon;
+use App\Models\Country;
 
 class CountriesTableSeeder extends Seeder
 {

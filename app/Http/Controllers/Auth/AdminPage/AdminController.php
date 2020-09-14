@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth\AdminPage;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {

@@ -55,7 +55,8 @@
                     <select class="form-control" id="category_id" name="category_id">
                         <option value="">Select Category</option>
                         @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : ''}} >{{ $category->title }}</option>
+                        <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : ''}}>
+                            {{ $category->title }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('category_id'))
@@ -74,7 +75,6 @@
                         <span class="error">{{$errors->first('tags')}}</span>
                         @endif
                     </div>
-            
                     @endforeach
                 </div>
                 <button class="btn btn-primary">Update Post</button>

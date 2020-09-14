@@ -68,12 +68,9 @@
                         @if ($errors->has('tags'))
                         <span class="error"> {{ $errors->first('tags') }}</span>
                         @endif
-                    </div>
-                    
+                    </div>                  
                     @endforeach
-                    
                 </div>
-
                 <button class="btn btn-primary">Create Post</button>
             </form>
         </div>

@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-12">
             <a href="{{route('post.create')}}" class="btn btn-success mb-3"><i class="fa fa-plus"></i> Create Post</a>
+            @if(session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
             <div style="overflow-x:auto;">
                 <table class="table text-center">
                     <thead>
@@ -23,14 +26,11 @@
                             <td>{{ $post->meta_title }}</td>
                             <td>{{ $post->meta_description }}</td>
                             <td>
-                              
                                 <img src="{{asset('images/'.$post->image)}}" width="60">
-                                
                             </td>
                             <td>
                                 <a href="{{ route('post.show',$post->id) }}" class="btn btn-light">Show</a>
                             </td>
-                        
                             <td>
                                 <a href="{{ route('post.edit',$post->id) }}" class="btn btn-light">Edit</a>
                             </td>
@@ -43,9 +43,9 @@
                             </td>
                         </tr>
                         @endforeach
-                     
                     </tbody>
                 </table>
+                {{$posts->links()}}
             </div>
         </div>
     </div>

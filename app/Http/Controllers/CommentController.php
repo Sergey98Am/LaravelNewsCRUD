@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -14,6 +13,7 @@ class CommentController extends Controller
         $post = Post::find($id);
         $post1 = Post::with('comments')->find($id);
         $comment = Comment::find($id);
+
         return view('comments',['post' => $post,'comments' => $post1->comments()->orderBy('id','desc')->paginate(6), 'comment' => $comment]);
     }
 
@@ -22,16 +22,19 @@ class CommentController extends Controller
         $input = $request->except('_token');
 
         $validated = $request->validated();
+
         $comment = new Comment();
         $comment->fill($input);
         $comment->save();
-        return back();
+
+        return back()->with('message','Success!');;
     }
 
     public function CommentDelete($id){
         $delete = Comment::find($id);
         $delete->delete();
-        return back();
+
+        return back()->with('message','Success!');;
     }
 
     public function SubCommentsView($id){

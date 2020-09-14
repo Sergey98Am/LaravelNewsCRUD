@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Models\PostTag;
 
-
 class PostTagTableSeeder extends Seeder
 {
     /**
@@ -13,6 +12,6 @@ class PostTagTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(PostTag::class,1)->create();
+        factory(PostTag::class,10)->create();
     }
 }

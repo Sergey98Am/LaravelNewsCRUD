@@ -27,9 +27,8 @@ class AuthUserRequest extends FormRequest
         return [
             'first_name' => 'required|min:2|max:255',
             'last_name' => 'required|min:2|max:255|',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email,'.Auth::user()->id,
             'date_of_birth' => 'required',
-            'gender' => 'required',
             'country_id' => 'exists:countries,id',
             'password' => 'sometimes|nullable|string|min:8|confirmed',
         ];
